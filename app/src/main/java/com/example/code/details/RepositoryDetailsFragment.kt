@@ -42,7 +42,6 @@ internal class RepositoryDetailsFragment: Fragment() {
   }
 
   private fun RepositoryDetailsViewModel.State.handle() = with(viewBinding) {
-    progressOverlay.isVisible = isLoading
     if (repository != null) {
       starsText.text = repository.stars.toString()
       descriptionText.text = repository.description

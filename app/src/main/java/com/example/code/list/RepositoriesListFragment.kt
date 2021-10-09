@@ -28,6 +28,7 @@ internal class RepositoriesListFragment: Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     viewBinding.list.adapter = RepositoriesAdapter(viewModel::onItemClicked)
+    viewBinding.swipeContainer.setOnRefreshListener(viewModel::onSwipeRefresh)
     viewModel.state
         .onEach { it.handle() }
         .launchIn(viewLifecycleOwner.lifecycleScope)
@@ -37,7 +38,7 @@ internal class RepositoriesListFragment: Fragment() {
   }
 
   private fun RepositoriesListViewModel.State.handle() {
-    viewBinding.progressOverlay.isVisible = isLoading
+    viewBinding.swipeContainer.isRefreshing = isLoading
     (viewBinding.list.adapter as RepositoriesAdapter).submitList(items)
   }
 }

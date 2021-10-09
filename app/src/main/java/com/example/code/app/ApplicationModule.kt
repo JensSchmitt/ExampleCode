@@ -1,6 +1,6 @@
 package com.example.code.app
 
-import com.example.code.domain.GithubApi
+import com.example.code.list.Repository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
@@ -11,13 +11,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import java.util.Date
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ApplicationModule {
+internal object ApplicationModule {
 
   @Provides
-  fun githubApi(): GithubApi = retrofit().create()
+  @Singleton
+  fun backend() = Repository(retrofit().create())
 
   private fun retrofit() =
       Retrofit.Builder()
