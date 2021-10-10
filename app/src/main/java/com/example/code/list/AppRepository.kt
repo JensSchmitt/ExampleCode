@@ -3,7 +3,7 @@ package com.example.code.list
 import com.example.code.domain.GithubApi
 import com.example.code.domain.Repository
 
-internal class Repository(private val api: GithubApi) {
+internal class AppRepository(private val api: GithubApi) {
 
   private var cached: List<Repository>? = null
 

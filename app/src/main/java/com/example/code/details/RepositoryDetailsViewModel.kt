@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 internal class RepositoryDetailsViewModel @AssistedInject constructor(
-    private val repository: com.example.code.list.Repository,
+    private val appRepository: com.example.code.list.AppRepository,
     @Assisted private val id: String
 ) : ViewModel() {
 
@@ -20,7 +20,7 @@ internal class RepositoryDetailsViewModel @AssistedInject constructor(
   init {
     viewModelScope.launch {
       _state.value = _state.value.copy(isLoading = true)
-      val item: com.example.code.domain.Repository = repository.items()
+      val item: com.example.code.domain.Repository = appRepository.items()
           .first { it.id == id }
       _state.value = State(false, item)
     }

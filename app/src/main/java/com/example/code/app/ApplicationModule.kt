@@ -1,6 +1,6 @@
 package com.example.code.app
 
-import com.example.code.list.Repository
+import com.example.code.list.AppRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module
@@ -19,7 +19,7 @@ internal object ApplicationModule {
 
   @Provides
   @Singleton
-  fun backend() = Repository(retrofit().create())
+  fun backend() = AppRepository(retrofit().create())
 
   private fun retrofit() =
       Retrofit.Builder()
