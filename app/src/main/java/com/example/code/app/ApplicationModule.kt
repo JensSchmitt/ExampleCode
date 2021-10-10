@@ -1,6 +1,5 @@
 package com.example.code.app
 
-import com.example.code.list.AppRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import dagger.Module

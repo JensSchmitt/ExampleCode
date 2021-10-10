@@ -2,6 +2,8 @@ package com.example.code.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.code.app.AppRepository
+import com.example.code.domain.Repository
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -10,7 +12,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 internal class RepositoryDetailsViewModel @AssistedInject constructor(
-    private val appRepository: com.example.code.list.AppRepository,
+    private val appRepository: AppRepository,
     @Assisted private val id: String
 ) : ViewModel() {
 
@@ -20,13 +22,13 @@ internal class RepositoryDetailsViewModel @AssistedInject constructor(
   init {
     viewModelScope.launch {
       _state.value = _state.value.copy(isLoading = true)
-      val item: com.example.code.domain.Repository = appRepository.items()
+      val item: Repository = appRepository.items()
           .first { it.id == id }
       _state.value = State(false, item)
     }
   }
 
-  data class State(val isLoading: Boolean, val repository: com.example.code.domain.Repository?)
+  data class State(val isLoading: Boolean, val repository: Repository?)
 
   @AssistedFactory
   interface Factory {

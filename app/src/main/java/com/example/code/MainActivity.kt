@@ -1,10 +1,9 @@
-package com.example.code.app
+package com.example.code
 
 import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.code.R
 import com.example.code.base.navHostController
 import com.example.code.base.viewBinding
 import com.example.code.databinding.MainActivityBinding

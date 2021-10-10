@@ -26,7 +26,7 @@ internal class RepositoriesAdapter(private val onItemClicked: (RepositoryItem) -
   }
 }
 
-class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+internal class RepositoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
   private val title: TextView = itemView.findViewById(R.id.title)
   private val stars: TextView = itemView.findViewById(R.id.title)

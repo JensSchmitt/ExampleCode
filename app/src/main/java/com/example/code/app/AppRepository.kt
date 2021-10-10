@@ -1,4 +1,4 @@
-package com.example.code.list
+package com.example.code.app
 
 import com.example.code.domain.GithubApi
 import com.example.code.domain.Repository
