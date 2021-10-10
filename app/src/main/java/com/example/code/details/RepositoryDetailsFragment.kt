@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -43,6 +42,7 @@ internal class RepositoryDetailsFragment: Fragment() {
 
   private fun RepositoryDetailsViewModel.State.handle() = with(viewBinding) {
     if (repository != null) {
+      titleText.text = repository.name
       starsText.text = repository.stars.toString()
       descriptionText.text = repository.description
       forksText.text = repository.forks.toString()

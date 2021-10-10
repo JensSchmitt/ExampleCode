@@ -4,6 +4,7 @@
   <string name="error_no_internet">No internet connection</string>
   <string name="error_general">Oops, something went wrong</string>
   <string name="title_trending_repositories">Trending repositories</string>
+  <string name="title_label">Name:</string>
   <string name="stars_label">Stars:</string>
   <string name="description_label">Description:</string>
   <string name="forks_label">Forks:</string>

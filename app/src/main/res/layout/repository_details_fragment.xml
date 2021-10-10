@@ -6,13 +6,30 @@
     android:orientation="vertical">
 
   <TextView
+      android:id="@+id/titleLabel"
+      style="@style/label"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/title_label"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/titleText"
+      style="@style/text"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/titleLabel" />
+
+  <TextView
       android:id="@+id/starsLabel"
       style="@style/label"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="@string/stars_label"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      app:layout_constraintTop_toBottomOf="@id/titleText" />
 
   <TextView
       android:id="@+id/starsText"
