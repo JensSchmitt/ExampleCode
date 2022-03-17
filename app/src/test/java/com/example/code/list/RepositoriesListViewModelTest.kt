@@ -8,13 +8,14 @@ import com.example.code.domain.Owner
 import com.example.code.domain.Repository
 import com.example.code.list.RepositoriesListViewModel.State
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.given
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.then
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.given
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.then
 import java.util.Date
 import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.time.ExperimentalTime
@@ -23,30 +24,28 @@ import kotlin.time.ExperimentalTime
 @ExperimentalCoroutinesApi
 internal class RepositoriesListViewModelTest {
 
-  @get:Rule val coroutineContext = CoroutineTestRule()
+  @get:Rule val coroutineContext = CoroutineTestRule(StandardTestDispatcher())
 
   private val repository: AppRepository = mock()
 
   private val viewModel by lazy(NONE) { RepositoriesListViewModel(repository) }
 
   @Test
-  fun `SHOULD emit correct state ON init`() = runBlockingTest(coroutineContext) {
+  fun `SHOULD emit correct state ON init`() = runTest {
     given(repository.items()).willReturn(listOf(REPOSITORY1))
-    pauseDispatcher()
     viewModel.state
         .test {
           assertThat(awaitItem()).isEqualTo(State(false, emptyList()))
           assertThat(awaitItem()).isEqualTo(State(true, emptyList()))
           assertThat(awaitItem()).isEqualTo(State(false, listOf(REPOSITORY1.toItem())))
         }
-    resumeDispatcher()
     then(repository)
         .should()
         .items()
   }
 
   @Test
-  fun `SHOULD navigate to details ON item clicked`() = runBlockingTest(coroutineContext) {
+  fun `SHOULD navigate to details ON item clicked`() = runTest {
     given(repository.items()).willReturn(listOf(REPOSITORY1))
 
     viewModel.onItemClicked(REPOSITORY1.toItem())
@@ -56,12 +55,14 @@ internal class RepositoriesListViewModelTest {
   }
 
   @Test
-  fun `SHOULD force refresh AND emit new item ON swipe refresh`() = runBlockingTest(coroutineContext) {
+  fun `SHOULD force refresh AND emit new item ON swipe refresh`() = runTest {
     given(repository.items()).willReturn(listOf(REPOSITORY1))
     given(repository.items(true)).willReturn(listOf(REPOSITORY2))
 
     viewModel.state
         .test {
+          assertThat(awaitItem()).isEqualTo(State(false, emptyList()))
+          assertThat(awaitItem()).isEqualTo(State(true, emptyList()))
           assertThat(awaitItem()).isEqualTo(State(false, listOf(REPOSITORY1.toItem())))
           viewModel.onSwipeRefresh()
           assertThat(awaitItem()).isEqualTo(State(true, listOf(REPOSITORY1.toItem())))

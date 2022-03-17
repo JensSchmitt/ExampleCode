@@ -2,7 +2,7 @@ package com.example.code
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.TestDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.rules.TestWatcher
@@ -11,7 +11,7 @@ import kotlin.coroutines.CoroutineContext
 
 @ExperimentalCoroutinesApi
 class CoroutineTestDispatcherRule(
-    private val coroutineDispatcher: TestCoroutineDispatcher
+    private val coroutineDispatcher: TestDispatcher
 ) : CoroutineContext by coroutineDispatcher,
     CoroutineTestRule,
     TestWatcher() {
@@ -21,7 +21,6 @@ class CoroutineTestDispatcherRule(
   }
 
   override fun finished(description: Description) {
-    coroutineDispatcher.cleanupTestCoroutines()
     Dispatchers.resetMain()
   }
 }

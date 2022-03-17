@@ -7,12 +7,13 @@ import com.example.code.details.RepositoryDetailsViewModel.State
 import com.example.code.domain.Owner
 import com.example.code.domain.Repository
 import com.google.common.truth.Truth.assertThat
-import com.nhaarman.mockitokotlin2.given
-import com.nhaarman.mockitokotlin2.mock
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.test.runTest
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.given
+import org.mockito.kotlin.mock
 import java.util.Date
 import kotlin.LazyThreadSafetyMode.NONE
 import kotlin.time.ExperimentalTime
@@ -21,23 +22,21 @@ import kotlin.time.ExperimentalTime
 @ExperimentalCoroutinesApi
 internal class RepositoryDetailsViewModelTest {
 
-  @get:Rule val coroutineContext = CoroutineTestRule()
+  @get:Rule val coroutineContext = CoroutineTestRule(StandardTestDispatcher())
 
   private val repository: AppRepository = mock()
 
   private val viewModel by lazy(NONE) { RepositoryDetailsViewModel(repository, SOME_REPOSITORY.id) }
 
   @Test
-  fun `SHOULD emit correct state ON init`() = runBlockingTest(coroutineContext) {
+  fun `SHOULD emit correct state ON init`() = runTest {
     given(repository.items()).willReturn(listOf(SOME_REPOSITORY))
-    pauseDispatcher()
     viewModel.state
         .test {
           assertThat(awaitItem()).isEqualTo(State(false, null))
           assertThat(awaitItem()).isEqualTo(State(true, null))
           assertThat(awaitItem()).isEqualTo(State(false, SOME_REPOSITORY))
         }
-    resumeDispatcher()
   }
 }
 
