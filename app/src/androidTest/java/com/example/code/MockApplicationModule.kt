@@ -1,7 +1,7 @@
 package com.example.code
 
 import com.example.code.app.AppRepository
-import com.example.code.app.ApplicationModule
+import com.example.code.app.NetworkModule
 import com.example.code.domain.GithubApi
 import com.example.code.domain.Owner
 import com.example.code.domain.Repositories
@@ -14,7 +14,7 @@ import java.util.Date
 import javax.inject.Singleton
 
 @Module
-@TestInstallIn(components = [SingletonComponent::class], replaces = [ApplicationModule::class])
+@TestInstallIn(components = [SingletonComponent::class], replaces = [NetworkModule::class])
 internal object MockApplicationModule {
 
   @Provides

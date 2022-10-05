@@ -1,9 +1,5 @@
 <resources>
   <string name="app_name">ExampleCode</string>
-  <string name="retry">Retry</string>
-  <string name="error_no_internet">No internet connection</string>
-  <string name="error_general">Oops, something went wrong</string>
-  <string name="title_trending_repositories">Trending repositories</string>
   <string name="title_label">Name:</string>
   <string name="stars_label">Stars:</string>
   <string name="description_label">Description:</string>
@@ -11,7 +7,6 @@
   <string name="url_label">Url:</string>
   <string name="created_at_label">Created at:</string>
   <string name="owner_label">Onwer:</string>
-  <string name="owner_avatar_description">Owner avatar</string>
   <string name="title_repositories_list">Trending Github repositories</string>
   <string name="title_repository_details">Details</string>
 </resources>

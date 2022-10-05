@@ -6,6 +6,7 @@ import com.example.code.app.AppRepository
 import com.example.code.details.RepositoryDetailsViewModel.State
 import com.example.code.domain.Owner
 import com.example.code.domain.Repository
+import com.example.code.domain.RepositoryId
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -26,7 +27,7 @@ internal class RepositoryDetailsViewModelTest {
 
   private val repository: AppRepository = mock()
 
-  private val viewModel by lazy(NONE) { RepositoryDetailsViewModel(repository, SOME_REPOSITORY.id) }
+  private val viewModel by lazy(NONE) { RepositoryDetailsViewModel(repository, RepositoryId(SOME_REPOSITORY.id)) }
 
   @Test
   fun `SHOULD emit correct state ON init`() = runTest {

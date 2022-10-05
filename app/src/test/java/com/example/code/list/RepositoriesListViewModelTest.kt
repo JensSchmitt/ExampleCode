@@ -3,9 +3,9 @@ package com.example.code.list
 import app.cash.turbine.test
 import com.example.code.CoroutineTestRule
 import com.example.code.app.AppRepository
-import com.example.code.details.awaitItem
 import com.example.code.domain.Owner
 import com.example.code.domain.Repository
+import com.example.code.domain.RepositoryId
 import com.example.code.list.RepositoriesListViewModel.State
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,8 +27,9 @@ internal class RepositoriesListViewModelTest {
   @get:Rule val coroutineContext = CoroutineTestRule(StandardTestDispatcher())
 
   private val repository: AppRepository = mock()
+  private val navigator: RepositoriesListNavigator = mock()
 
-  private val viewModel by lazy(NONE) { RepositoriesListViewModel(repository) }
+  private val viewModel by lazy(NONE) { RepositoriesListViewModel(repository, navigator) }
 
   @Test
   fun `SHOULD emit correct state ON init`() = runTest {
@@ -50,8 +51,9 @@ internal class RepositoriesListViewModelTest {
 
     viewModel.onItemClicked(REPOSITORY1.toItem())
 
-    viewModel.navDirections
-        .awaitItem(RepositoriesListFragmentDirections.toDetails(REPOSITORY1.id))
+    then(navigator)
+        .should()
+        .toDetails(RepositoryId((REPOSITORY1.id)))
   }
 
   @Test
